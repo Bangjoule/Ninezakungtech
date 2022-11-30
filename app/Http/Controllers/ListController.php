@@ -3,19 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Whislists;
+use App\Models\Whislist;
 
-class listsController extends Controller
+class ListController extends Controller
 {
     /**
-     * Display a listsing of the resource.
+     * Display a Whislisting of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $lists = lists::all();
-        return $lists;
+        $Whislist = Whislist::all();
+        return $Whislist;
     }
 
     /**
@@ -36,17 +36,17 @@ class listsController extends Controller
      */
     public function store(Request $request)
     {
-        $lists = new lists();
-        $lists->category_ram = $request->input('category_ram');
-        $lists->category_colors = $request->input('category_colors');
-        $lists->category_bundles = $request->input('category_bundles');
-        $lists->category_ssd = $request->input('category_ssd');
-        $lists->category_types = $request->input('category_types');
-        $lists->save();
+        $Whislist = new Whislist();
+        $Whislist->category_ram = $request->input('category_ram');
+        $Whislist->category_colors = $request->input('category_colors');
+        $Whislist->category_bundles = $request->input('category_bundles');
+        $Whislist->category_ssd = $request->input('category_ssd');
+        $Whislist->category_types = $request->input('category_types');
+        $Whislist->save();
 
         return response()->json([
             'status' => 201,
-            'data' => $lists
+            'data' => $Whislist
         ],201);
     }
 
@@ -58,11 +58,11 @@ class listsController extends Controller
      */
     public function show($id)
     {
-        $lists = lists::find($id);
-        if($lists) {
+        $Whislist = Whislist::find($id);
+        if($Whislist) {
             return response()->json([
                 'status' => 200,
-                'data' => $lists
+                'data' => $Whislist
             ], 200);
         } else {
             return response()->json([
@@ -92,17 +92,17 @@ class listsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $lists = lists::find($id);
-        if($lists){
-            $lists->category_ram = $request->category_ram ? $request->category_ram : $lists->category_ram;
-            $lists->category_colors = $request->category_colors ? $request->category_colors : $lists->category_colors;
-            $lists->category_bundles = $request->category_bundles ? $request->category_bundles : $lists->category_bundles;
-            $lists->category_ssd = $request->category_ssd ? $request->category_ssd : $lists->category_ssd;
-            $lists->category_types = $request->category_types ? $request->category_types : $lists->category_types;
-            $lists->save();
+        $Whislist = Whislist::find($id);
+        if($Whislist){
+            $Whislist->category_ram = $request->category_ram ? $request->category_ram : $Whislist->category_ram;
+            $Whislist->category_colors = $request->category_colors ? $request->category_colors : $Whislist->category_colors;
+            $Whislist->category_bundles = $request->category_bundles ? $request->category_bundles : $Whislist->category_bundles;
+            $Whislist->category_ssd = $request->category_ssd ? $request->category_ssd : $Whislist->category_ssd;
+            $Whislist->category_types = $request->category_types ? $request->category_types : $Whislist->category_types;
+            $Whislist->save();
             return response()->json([
                 'status' => 200,
-                'data' => $lists
+                'data' => $Whislist
             ], 200);
         } else {
             return response()->json([
@@ -120,12 +120,12 @@ class listsController extends Controller
      */
     public function destroy($id)
     {
-        $lists = lists::where('id', $id)->first();
-        if($lists){
-            $lists->delete();
+        $Whislist = Whislist::where('id', $id)->first();
+        if($Whislist){
+            $Whislist->delete();
             return response()->json([
                 'status'=>200,
-                'data' => $lists
+                'data' => $Whislist
             ], 200);
         }else{
             return response()->json([
